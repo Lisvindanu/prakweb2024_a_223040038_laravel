@@ -23,11 +23,8 @@ Route::get('/posts', function () {
     ]);
 });
 
-Route::get('posts/{slug}', function ($slug) {
-    $post = Post::find($slug);
-    if(!$post) {
-        return view('posts', ['tittle' => 'Post Not Found', 'posts' => [null]]);
-    }
+Route::get('/posts/{post:slug}', function (Post $post) {
+//    dd($post);
     return view('post', ['tittle' => 'Single Post', 'post' => $post]);
 });
 
@@ -41,3 +38,9 @@ Route::get('/contact', function () {
 // 2. buat artikel, judul dan isi
 // 2. /contact
 // email dan sosmed
+
+
+//    $post = Post::find($id);
+//    if(!$post) {
+//        return view('posts', ['tittle' => 'Post Not Found', 'posts' => [null]]);
+//    }
