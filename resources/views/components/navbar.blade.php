@@ -12,13 +12,15 @@
                         <x-nav-link href="/posts" :active="request()->is('posts')">Blog</x-nav-link>
                         <x-nav-link href="/about" :active="request()->is('about')">About</x-nav-link>
                         <x-nav-link href="/contact" :active="request()->is('contact')">Contact</x-nav-link>
-
                     </div>
+
                 </div>
             </div>
             <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">
-
+                    <div class="ml-10 flex items-baseline space-x-4 mx-auto">
+                        <x-nav-link href="/login" :active="request()->is('contact')">Login</x-nav-link>
+                    </div>
                     <!-- Profile dropdown -->
                     <div class="relative ml-3">
                         <div>

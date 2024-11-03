@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SignUpContoller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -48,19 +50,12 @@ Route::get('/categories/{category:slug}', function (Category $category) {
     ]);
 });
 
-
-
 Route::get('/contact', function () {
     return view('contact', ['tittle' => 'Contact', 'nama' => 'Lisvindanu']);
 });
-// Buat 2 rute baru
-// 1. /blog
-// 2. buat artikel, judul dan isi
-// 2. /contact
-// email dan sosmed
 
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'authenticate']);
 
-//    $post = Post::find($id);
-//    if(!$post) {
-//        return view('posts', ['tittle' => 'Post Not Found', 'posts' => [null]]);
-//    }
+Route::get('/signup', [SignUpContoller::class, 'index']);
+Route::post('/signup', [SignUpContoller::class, 'store']);
