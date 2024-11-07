@@ -13,12 +13,16 @@
                         <a href="/dashboard/posts" class="badge bg-success d-flex align-items-center">
                             <span data-feather="arrow-left" class="me-2"></span>Back to all my posts
                         </a>
-                        <a href="" class="badge bg-warning d-flex align-items-center">
+                        <a href="/dashboard/posts/{{$post->slug}}/edit" class="badge bg-warning d-flex align-items-center">
                             <span data-feather="edit" class="me-2"></span>Edit
                         </a>
-                        <a href="" class="badge bg-danger d-flex align-items-center">
-                            <span data-feather="x-circle" class="me-2"></span>Delete
-                        </a>
+                        <form class="d-inline" action="/dashboard/posts/{{$post->slug}}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button class="btn btn-danger" onclick="return confirm('Are you sure?')">
+                                <span data-feather="x-circle"></span>Delete
+                            </button>
+                        </form>
                     </div>
                 </div>
 
