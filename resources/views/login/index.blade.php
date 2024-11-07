@@ -16,12 +16,9 @@
                                     <span class="font-medium">{{ session('success') }}</span>
                                 </div>
                             @endif
-                            @if(session())
-                                @dd(session())
-                            @endif
                             @if ( session()->has('loginError'))
                                 <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-                                    <span class="font-medium">{{ $errors->first('loginError') }}</span>
+                                    <span class="font-medium">{{ session('loginError') }}</span>
                                 </div>
                             @endif
                             <form class="space-y-4 md:space-y-6" action="/login" method="post" >

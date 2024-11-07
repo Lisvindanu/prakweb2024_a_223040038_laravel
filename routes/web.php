@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignUpContoller;
 use App\Models\Category;
@@ -7,6 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -54,8 +57,17 @@ Route::get('/contact', function () {
     return view('contact', ['tittle' => 'Contact', 'nama' => 'Lisvindanu']);
 });
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/signup', [SignUpContoller::class, 'index']);
+Route::get('/signup', [SignUpContoller::class, 'index'])->middleware('guest');
 Route::post('/signup', [SignUpContoller::class, 'store']);
+
+Route::get('/dashboard', function (){
+    return view('dashboard.index');
+})->middleware('auth');
+
+
+
+Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
