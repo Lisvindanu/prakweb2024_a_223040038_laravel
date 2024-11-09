@@ -6,7 +6,7 @@
     </div>
 
 <div class="col-lg-8">
-    <form method="post" action="/dashboard/posts">
+    <form method="post" action="/dashboard/posts" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="tittle" class="form-label">title</label>
@@ -39,6 +39,14 @@
                 @endforeach
             </select>
         </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <img class="img-preview img-fluid">
+            <input class="form-control @error('image') is-invalid @enderror"  type="file" id="image" name="image" onchange="previewImage()">
+            @error('image')
+            <p class="text-danger">{{$message}}</p>
+            @enderror
+        </div>
      <div class="mb-3">
          <label for="body" class="form-label">Body</label>
          @error('body')
@@ -63,5 +71,19 @@
         document.addEventListener('trix-file-accept',function (e){
             e.preventDefault();
         })
+
+        function previewImage() {
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+            imgPreview.style.display = 'block';
+
+         const ofReader = new FileReader();
+         ofReader.readAsDataURL(image.files[0]);
+
+         ofReader.onload = function (oFREvent){
+             imgPreview.src = oFREvent.target.result;
+         }
+        }
+
     </script>
 @endsection

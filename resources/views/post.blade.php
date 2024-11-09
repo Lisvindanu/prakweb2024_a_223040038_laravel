@@ -25,7 +25,16 @@
                     <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
                         {{$post->category->slug}}</h1>
                 </header>
-                <p>{{($post->body) }}</p>
+                @if($post -> image)
+                    <div class="mb-3">
+                        <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->category->name}}" class="img-fluid mt-3">
+                    </div>
+                @else
+                    <div class="mb-3">
+                        <img src="@imgslash('img.png')" alt="naruto" class="img-fluid mt-3">
+                    </div>
+                @endif
+                <p>{!!  ($post->body)!!} </p>
             </article>
         </div>
     </main>

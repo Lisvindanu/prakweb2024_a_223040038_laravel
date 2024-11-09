@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\LoginController;
@@ -27,7 +28,7 @@ Route::get('/posts', function () {
 
     return view('posts', [
         'tittle' => 'Blog',
-        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(9)->withQueryString()]);
+        'posts' => Post::filter(request(['search', 'categories', 'author']))->latest()->paginate(9)->withQueryString()]);
 });
 
 Route::get('/posts/{post:slug}', function (Post $post) {
@@ -37,15 +38,15 @@ Route::get('/posts/{post:slug}', function (Post $post) {
 
 Route::get('/authors/{user:username}', function (User $user) {
 //    dd($post);
-//    $posts = $user->posts->load('category', 'author');
+//    $posts = $user->posts->load('categories', 'author');
     return view('posts', [
 
         'tittle' =>count($user->posts) . '  Articles by ' . $user->name,
         'posts' => $user->posts
     ]);
 });
-Route::get('/categories/{category:slug}', function (Category $category) {
-//    $posts = $category->posts->load('category', 'author');
+Route::get('/categories/{categories:slug}', function (Category $category) {
+//    $posts = $categories->posts->load('categories', 'author');
 //    dd($post);
     return view('posts', [
         'tittle' => 'Articles in Category : ' . $category->name,
@@ -71,3 +72,5 @@ Route::get('/dashboard', function (){
 
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except(['show']);

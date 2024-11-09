@@ -12,7 +12,7 @@ class Post extends Model
 {
 
     use HasFactory,Sluggable;
-    protected $fillable = ['tittle', 'slug', 'body', 'author_id', 'category_id'];
+    protected $fillable = ['tittle', 'slug', 'image', 'body', 'author_id', 'category_id'];
     protected $with = ['author', 'category'];
     public function author(): BelongsTo {
         return $this->belongsTo(User::class);
@@ -27,9 +27,9 @@ class Post extends Model
         );
 
         $query->when(
-            $filters['category'] ?? false,
+            $filters['categories'] ?? false,
             fn ($query, $category) =>
-            $query->whereHas('category', fn($query)=> $query->where('slug', $category))
+            $query->whereHas('categories', fn($query)=> $query->where('slug', $category))
         );
 
         $query->when(

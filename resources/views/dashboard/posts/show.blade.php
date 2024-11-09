@@ -26,6 +26,17 @@
                     </div>
                 </div>
 
+                @if($post -> image)
+                    <div class="mb-3">
+                        <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->category->name}}" class="img-fluid mt-3">
+                    </div>
+                @else
+                    <div class="mb-3">
+                        <img src="@imgslash('img.png')" alt="naruto" class="img-fluid mt-3">
+                    </div>
+                @endif
+
+
                 <div class="d-flex align-items-start mb-4">
                     <img src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="{{ $post->author->name }}" class="rounded-circle me-3" style="width: 80px; height: 80px;">
                     <div>
@@ -36,7 +47,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <p>{{ $post->body }}</p>
+                    <p>{!! $post->body !!}</p>
                 </div>
             </div>
         </div>

@@ -29,5 +29,20 @@
                 </a>
             </li>
         </ul>
+        @can('admin')
+        <div class="position-sticky pt-3">
+            <h6>
+                <span>administrator</span>
+            </h6>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/categories*') ? 'active' : '' }}" aria-current="page" href="/dashboard/categories">
+                        <span data-feather="grid"></span>
+                        Post Categories
+                    </a>
+                </li>
+            </ul>
+        </div>
+        @endcan
     </div>
 </nav>

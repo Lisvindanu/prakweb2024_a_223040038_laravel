@@ -3,8 +3,8 @@
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-md sm:text-center">
             <form>
-                @if(request('category'))
-                    <input type="hidden" name="category" value="{{request('category')}}">
+                @if(request('categories'))
+                    <input type="hidden" name="category" value="{{request('categories')}}">
                 @endif
                     @if(request('author'))
                     <input type="hidden" name="author" value="{{request('author')}}">
@@ -36,8 +36,18 @@
         <div class="my-4 py-4  px-4 mx-auto max-w-screen-xl lg:py-8 lg:px-0">
             <div class="grid gap-4 lg:grid-cols-3 md:grid-cols-2">
            @forelse($posts as $post)
+
                          <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                        <div class="flex justify-between items-center mb-5 text-gray-500">
+                        <div class="d-flex justify-between items-center mb-5 text-gray-500">
+                            @if($post -> image)
+                                <div class="mb-3">
+                                    <img src="{{asset('storage/' . $post->image)}}" alt="{{$post->category->name}}" class="img-fluid mt-3">
+                                </div>
+                            @else
+                                <div class="mb-3">
+                                    <img src="@imgslash('img.png')" alt="naruto" class="img-fluid mt-3">
+                                </div>
+                            @endif
                             <a href="/posts?category={{$post->category->slug}}">
                   <span class="bg-{{$post->category->color}}-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                        {{$post->category->name}}
@@ -46,8 +56,8 @@
                             <span class="text-sm">{{$post->created_at->diffForHumans()}}</span>
                         </div>
                         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline"><a href="/posts/{{$post['slug']}}">{{$post['tittle']}}</a></h2>
-                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{Str::limit($post['body'], 150) }}</p>
-                        <div class="flex justify-between items-center">
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{!! Str::limit($post['body'], 150) !!}</p>
+                        <div class="flex justify-between items-center mt-3">
                             <a href="/posts?author={{$post->author->username}}">
                             <div class="flex items-center space-x-3">
                                 <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="{{$post->author->name}}" />
